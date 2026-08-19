@@ -1,0 +1,53 @@
+Primary_Complaint,Contract_Preference,Monthly_Charge_Band,Internet_Type_Need,Family_Size_Need,Recommended_Plan,Recommended_Price,Plan_Description
+Price,Month-to-Month,High,Fiber Optic,Single,Value Saver Fiber,45.0,"Budget fiber plan, no bundled extras, cuts monthly cost ~35%."
+Price,Month-to-Month,High,Fiber Optic,Small Family,Value Saver Fiber,45.0,"Budget fiber plan, no bundled extras, cuts monthly cost ~35%."
+Price,Month-to-Month,Medium,Cable,Single,Value Saver Cable,35.0,"Lean cable plan for price-sensitive single users, no add-ons."
+Price,Month-to-Month,Medium,Cable,Small Family,Value Saver Cable,35.0,"Lean cable plan for price-sensitive single users, no add-ons."
+Price,One Year,High,Fiber Optic,Small Family,Family Fiber Lite,55.0,"1-year discounted fiber bundle, lower effective monthly rate."
+Price,One Year,High,Fiber Optic,Large Family,Family Fiber Lite,55.0,"1-year discounted fiber bundle, lower effective monthly rate."
+Price,Month-to-Month,Low,DSL,Single,Basic Connect,25.0,"Entry-level DSL plan, lowest price point available."
+Price,Month-to-Month,Low,DSL,Small Family,Basic Connect,25.0,"Entry-level DSL plan, lowest price point available."
+Competitor,Month-to-Month,High,Fiber Optic,Small Family,Loyalty Fiber Max,70.0,Matches competitor speed/offer with loyalty discount + device upgrade.
+Competitor,Month-to-Month,High,Fiber Optic,Large Family,Loyalty Fiber Max,70.0,Matches competitor speed/offer with loyalty discount + device upgrade.
+Competitor,Month-to-Month,Medium,Cable,Single,Switch-Back Saver,40.0,Aggressive win-back pricing plus 3 months premium support free.
+Competitor,Month-to-Month,Medium,Cable,Small Family,Switch-Back Saver,40.0,Aggressive win-back pricing plus 3 months premium support free.
+Competitor,One Year,High,Fiber Optic,Large Family,Ultra Fiber Family,95.0,High-speed multi-device fiber plan beating competitor offers.
+Competitor,Two Year,High,Fiber Optic,Large Family,Ultra Fiber Family,95.0,High-speed multi-device fiber plan beating competitor offers.
+Dissatisfaction,Month-to-Month,Medium,Fiber Optic,Small Family,Premium Care Bundle,65.0,Adds Premium Support + Device Protection to fix reliability issues.
+Dissatisfaction,One Year,Medium,Fiber Optic,Small Family,Premium Care Bundle,65.0,Adds Premium Support + Device Protection to fix reliability issues.
+Dissatisfaction,Month-to-Month,High,Cable,Single,Reliability Plus,58.0,Prioritized network reliability tier with proactive monitoring.
+Dissatisfaction,Month-to-Month,High,Cable,Small Family,Reliability Plus,58.0,Prioritized network reliability tier with proactive monitoring.
+Attitude,Month-to-Month,Medium,Cable,Single,VIP Support Plan,50.0,Dedicated priority support line for service-attitude issues.
+Attitude,Month-to-Month,Medium,DSL,Single,VIP Support Plan,50.0,Dedicated priority support line for service-attitude issues.
+Attitude,Month-to-Month,High,Fiber Optic,Small Family,White-Glove Fiber,75.0,Concierge-level onboarding & dedicated support team.
+Attitude,One Year,High,Fiber Optic,Small Family,White-Glove Fiber,75.0,Concierge-level onboarding & dedicated support team.
+Other,One Year,Medium,Fiber Optic,Single,Standard Fiber Plus,48.0,"Balanced general-purpose fiber plan, moderate data allowance."
+Other,One Year,Medium,Fiber Optic,Small Family,Standard Fiber Plus,48.0,"Balanced general-purpose fiber plan, moderate data allowance."
+Slow Speed,Month-to-Month,Medium,DSL,Single,Speed Boost Fiber,52.0,Upgrades DSL to fiber-equivalent speed at a modest price step-up.
+Slow Speed,Month-to-Month,Medium,DSL,Small Family,Speed Boost Fiber,52.0,Upgrades DSL to fiber-equivalent speed at a modest price step-up.
+Slow Speed,One Year,High,Cable,Small Family,High-Speed Cable Pro,68.0,Higher-tier cable bandwidth for multi-device households.
+Slow Speed,One Year,High,Cable,Large Family,High-Speed Cable Pro,68.0,Higher-tier cable bandwidth for multi-device households.
+Data Limits,Month-to-Month,Medium,Fiber Optic,Small Family,Unlimited Data Fiber,60.0,"Removes data caps entirely, ideal for streaming-heavy households."
+Data Limits,One Year,Medium,Fiber Optic,Small Family,Unlimited Data Fiber,60.0,"Removes data caps entirely, ideal for streaming-heavy households."
+Data Limits,Two Year,High,Fiber Optic,Large Family,Unlimited Family Max,90.0,Unlimited data + multi-line support for large households.
+Data Limits,Two Year,High,Fiber Optic,Small Family,Unlimited Family Max,90.0,Unlimited data + multi-line support for large households.
+Streaming Needs,Month-to-Month,Medium,Fiber Optic,Small Family,Streaming Entertainment Pack,58.0,Bundles TV + Movies + Music streaming add-ons at a discount.
+Streaming Needs,One Year,Medium,Fiber Optic,Small Family,Streaming Entertainment Pack,58.0,Bundles TV + Movies + Music streaming add-ons at a discount.
+Streaming Needs,One Year,High,Fiber Optic,Large Family,Ultimate Entertainment Bundle,88.0,Full streaming suite + Unlimited Data for families.
+Streaming Needs,Two Year,High,Fiber Optic,Large Family,Ultimate Entertainment Bundle,88.0,Full streaming suite + Unlimited Data for families.
+Security Concerns,Month-to-Month,Medium,Fiber Optic,Single,SecureNet Plan,46.0,Adds Online Security + Device Protection as core inclusions.
+Security Concerns,One Year,Medium,Fiber Optic,Single,SecureNet Plan,46.0,Adds Online Security + Device Protection as core inclusions.
+Security Concerns,One Year,High,Fiber Optic,Small Family,SecureNet Family,66.0,Household-wide online security & backup coverage.
+Security Concerns,Two Year,High,Fiber Optic,Small Family,SecureNet Family,66.0,Household-wide online security & backup coverage.
+Long Distance Charges,Month-to-Month,Medium,Cable,Small Family,Global Talk Saver,42.0,"Flat-rate long-distance bundle, no per-minute overage charges."
+Long Distance Charges,One Year,Medium,Cable,Small Family,Global Talk Saver,42.0,"Flat-rate long-distance bundle, no per-minute overage charges."
+Extra Data Charges,Month-to-Month,Low,DSL,Single,Budget Unlimited Data,33.0,Low-cost plan with unlimited data to avoid extra usage fees.
+Extra Data Charges,Month-to-Month,Low,DSL,Small Family,Budget Unlimited Data,33.0,Low-cost plan with unlimited data to avoid extra usage fees.
+Support Quality,One Year,Medium,Fiber Optic,Single,Premium Support Fiber,54.0,24/7 premium technical support bundled with standard fiber speed.
+Support Quality,Two Year,Medium,Fiber Optic,Single,Premium Support Fiber,54.0,24/7 premium technical support bundled with standard fiber speed.
+None / Satisfied,Two Year,High,Fiber Optic,Large Family,Elite Loyalty Rewards,85.0,Reward plan for long-term happy customers: referral bonuses + upgrades.
+None / Satisfied,Two Year,High,Fiber Optic,Small Family,Elite Loyalty Rewards,85.0,Reward plan for long-term happy customers: referral bonuses + upgrades.
+None / Satisfied,Two Year,Medium,Fiber Optic,Small Family,Loyalty Plus,58.0,2-year loyalty lock-in with modest bill credit for renewing.
+None / Satisfied,One Year,Medium,Fiber Optic,Single,Loyalty Plus,58.0,2-year loyalty lock-in with modest bill credit for renewing.
+Moved / Relocation,Month-to-Month,Medium,Fiber Optic,Small Family,Flexi-Move Plan,50.0,No-penalty relocation transfer with fiber availability guarantee.
+Moved / Relocation,Month-to-Month,Medium,Fiber Optic,Single,Flexi-Move Plan,50.0,No-penalty relocation transfer with fiber availability guarantee.
