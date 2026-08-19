@@ -15,6 +15,7 @@ confirm the two are significantly associated (i.e. the complaint
 meaningfully drives the recommendation, not random noise).
 """
 
+
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -30,49 +31,49 @@ from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import accuracy_score, mean_squared_error, r2_score
 from scipy.stats import chi2_contingency
 
-DATA_PATH = "/home/claude/CustomerRetentionAI/data/subscription_plans.csv"
-MODEL_DIR = "/home/claude/CustomerRetentionAI/models"
+DATA_PATH=r"C:\Users\Khush\OneDrive\Desktop\web\CustomerRetentionAI\data\subscription_plans.csv"
+MODEL_DIR=r"C:\Users\Khush\OneDrive\Desktop\web\CustomerRetentionAI\models"
 os.makedirs(MODEL_DIR, exist_ok=True)
 
-FEATURES = ["Primary_Complaint", "Contract_Preference", "Monthly_Charge_Band",
+FEATURES=["Primary_Complaint", "Contract_Preference", "Monthly_Charge_Band",
             "Internet_Type_Need", "Family_Size_Need"]
 
 
 def main():
-    df = pd.read_csv(DATA_PATH)
+    df=pd.read_csv(DATA_PATH)
 
-    encoders = {}
-    X = df[FEATURES].copy()
+    encoders={}
+    X=df[FEATURES].copy()
     for col in FEATURES:
         le = LabelEncoder()
         X[col] = le.fit_transform(X[col].astype(str))
         encoders[col] = le
 
-    le_plan = LabelEncoder()
-    y_plan = le_plan.fit_transform(df["Recommended_Plan"])
-    y_price = df["Recommended_Price"].values
+    le_plan=LabelEncoder()
+    y_plan=le_plan.fit_transform(df["Recommended_Plan"])
+    y_price=df["Recommended_Price"].values
 
     # Small custom dataset (52 rows) -> 5-fold cross-validation gives a much
     # more reliable estimate than a single fragile holdout split.
-    kf = KFold(n_splits=5, shuffle=True, random_state=42)
+    kf=KFold(n_splits=5, shuffle=True, random_state=42)
 
-    clf = RandomForestClassifier(n_estimators=200, max_depth=8, random_state=42)
-    plan_cv_preds = cross_val_predict(clf, X, y_plan, cv=kf)
-    plan_acc = accuracy_score(y_plan, plan_cv_preds)
+    clf=RandomForestClassifier(n_estimators=200, max_depth=8, random_state=42)
+    plan_cv_preds=cross_val_predict(clf, X, y_plan, cv=kf)
+    plan_acc=accuracy_score(y_plan, plan_cv_preds)
 
-    reg = RandomForestRegressor(n_estimators=200, max_depth=8, random_state=42)
-    price_cv_preds = cross_val_predict(reg, X, y_price, cv=kf)
-    mse = mean_squared_error(y_price, price_cv_preds)
-    rmse = np.sqrt(mse)
-    r2 = r2_score(y_price, price_cv_preds)
+    reg=RandomForestRegressor(n_estimators=200, max_depth=8, random_state=42)
+    price_cv_preds=cross_val_predict(reg, X, y_price, cv=kf)
+    mse=mean_squared_error(y_price, price_cv_preds)
+    rmse=np.sqrt(mse)
+    r2=r2_score(y_price, price_cv_preds)
 
     # Fit final models on ALL data for deployment
     clf.fit(X, y_plan)
     reg.fit(X, y_price)
 
-    # --- Chi-Squared test: Primary_Complaint vs Recommended_Plan association ---
-    contingency = pd.crosstab(df["Primary_Complaint"], df["Recommended_Plan"])
-    chi2, p_value, dof, expected = chi2_contingency(contingency)
+ 
+    contingency=pd.crosstab(df["Primary_Complaint"], df["Recommended_Plan"])
+    chi2, p_value, dof, expected=chi2_contingency(contingency)
 
     print(f"Recommendation classifier accuracy: {plan_acc:.4f}")
     print(f"Price regressor -> MSE: {mse:.3f}, RMSE: {rmse:.3f}, R2: {r2:.3f}")
@@ -99,5 +100,5 @@ def main():
     print("\nRecommendation engine artifacts saved to", MODEL_DIR)
 
 
-if __name__ == "__main__":
+if __name__=="__main__":
     main()
