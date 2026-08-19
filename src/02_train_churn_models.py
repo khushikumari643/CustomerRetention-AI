@@ -13,6 +13,9 @@ explain WHY a customer is likely to churn.
 Saves the best churn model + a feature-importance based explainer info.
 """
 
+
+
+#MAKE sure to change the path address based on local directory
 import pandas as pd
 import numpy as np
 import joblib
@@ -27,11 +30,11 @@ from sklearn.metrics import (accuracy_score, precision_score, recall_score,
                               f1_score, roc_auc_score, confusion_matrix)
 from xgboost import XGBClassifier
 
-DATA_PATH = "/home/claude/CustomerRetentionAI/data/processed/customer_data_clean.csv"
-MODEL_DIR = "/home/claude/CustomerRetentionAI/models"
+DATA_PATH=r"C:\Users\Khush\OneDrive\Desktop\web\CustomerRetentionAI\data\processed\customer_data_clean.csv"
+MODEL_DIR=r"C:\Users\Khush\OneDrive\Desktop\web\CustomerRetentionAI\models"
 os.makedirs(MODEL_DIR, exist_ok=True)
 
-FEATURES = [
+FEATURES=[
     "Age", "Married", "Number_of_Referrals", "Tenure_in_Months", "Gender",
     "Phone_Service", "Multiple_Lines", "Internet_Service", "Internet_Type",
     "Online_Security", "Online_Backup", "Device_Protection_Plan",
@@ -44,64 +47,62 @@ FEATURES = [
     "Has_Value_Deal", "Is_High_Spender", "Has_Referrals", "Is_Senior",
     "Value_Deal", "State"
 ]
-TARGET = "Churn_Label"
+TARGET="Churn_Label"
 
-CATEGORICAL = [
+CATEGORICAL=[
     "Married", "Gender", "Phone_Service", "Multiple_Lines", "Internet_Service",
     "Internet_Type", "Online_Security", "Online_Backup", "Device_Protection_Plan",
     "Premium_Support", "Streaming_TV", "Streaming_Movies", "Streaming_Music",
     "Unlimited_Data", "Contract", "Paperless_Billing", "Payment_Method",
     "Value_Deal", "State"
 ]
-NUMERIC = [c for c in FEATURES if c not in CATEGORICAL]
+NUMERIC=[c for c in FEATURES if c not in CATEGORICAL]
 
 
 def load_and_split():
-    df = pd.read_csv(DATA_PATH)
-    # Exclude "Joined" (brand new) customers from churn TRAINING since they
-    # have no behavioral history yet, but keep Stayed(0)/Churned(1).
-    train_df = df[df["Customer_Status"] != "Joined"].copy()
-    return df, train_df
+    df=pd.read_csv(DATA_PATH)
+    train_df=df[df["Customer_Status"]!="Joined"].copy()
+    return df,train_df
 
 
 def build_encoders(train_df):
-    encoders = {}
+    encoders={}
     for col in CATEGORICAL:
-        le = LabelEncoder()
+        le=LabelEncoder()
         le.fit(train_df[col].astype(str))
-        encoders[col] = le
+        encoders[col]=le
     return encoders
 
 
 def transform(df_subset, encoders, scaler=None, fit_scaler=False):
-    X = df_subset[FEATURES].copy()
+    X=df_subset[FEATURES].copy()
     for col in CATEGORICAL:
-        le = encoders[col]
-        X[col] = X[col].astype(str).map(
-            lambda v: v if v in le.classes_ else le.classes_[0]
+        le=encoders[col]
+        X[col]=X[col].astype(str).map(
+            lambda v:v if v in le.classes_ else le.classes_[0]
         )
-        X[col] = le.transform(X[col])
+        X[col]=le.transform(X[col])
     if fit_scaler:
-        scaler = StandardScaler()
-        X[NUMERIC] = scaler.fit_transform(X[NUMERIC])
+        scaler=StandardScaler()
+        X[NUMERIC]=scaler.fit_transform(X[NUMERIC])
     else:
-        X[NUMERIC] = scaler.transform(X[NUMERIC])
+        X[NUMERIC]=scaler.transform(X[NUMERIC])
     return X, scaler
 
 
 def main():
-    df, train_df = load_and_split()
-    encoders = build_encoders(train_df)
+    df,train_df=load_and_split()
+    encoders=build_encoders(train_df)
 
-    X_train_full, y = train_df[FEATURES], train_df[TARGET]
+    X_train_full,y=train_df[FEATURES], train_df[TARGET]
     X_tr, X_te, y_tr, y_te = train_test_split(
         train_df, train_df[TARGET], test_size=0.2, random_state=42, stratify=train_df[TARGET]
     )
 
-    X_tr_enc, scaler = transform(X_tr, encoders, fit_scaler=True)
-    X_te_enc, _ = transform(X_te, encoders, scaler=scaler, fit_scaler=False)
+    X_tr_enc,scaler=transform(X_tr, encoders, fit_scaler=True)
+    X_te_enc, _=transform(X_te, encoders, scaler=scaler, fit_scaler=False)
 
-    models = {
+    models={
         "Logistic_Regression": LogisticRegression(max_iter=2000, class_weight="balanced", random_state=42),
         "Random_Forest": RandomForestClassifier(n_estimators=300, max_depth=12, class_weight="balanced", random_state=42, n_jobs=-1),
         "XGBoost": XGBClassifier(
@@ -111,25 +112,25 @@ def main():
         ),
     }
 
-    results = {}
-    fitted = {}
+    results={}
+    fitted={}
     for name, model in models.items():
         model.fit(X_tr_enc, y_tr)
-        preds = model.predict(X_te_enc)
-        probs = model.predict_proba(X_te_enc)[:, 1]
-        results[name] = {
+        preds=model.predict(X_te_enc)
+        probs=model.predict_proba(X_te_enc)[:, 1]
+        results[name]={
             "accuracy": round(accuracy_score(y_te, preds), 4),
             "precision": round(precision_score(y_te, preds), 4),
             "recall": round(recall_score(y_te, preds), 4),
             "f1_score": round(f1_score(y_te, preds), 4),
             "roc_auc": round(roc_auc_score(y_te, probs), 4),
         }
-        fitted[name] = model
-        print(f"{name}: {results[name]}")
+        fitted[name]=model
+        print(f"{name}:{results[name]}")
 
-    best_name = max(results, key=lambda n: results[n]["roc_auc"])
-    best_model = fitted[best_name]
-    print(f"\nBest churn model: {best_name} -> {results[best_name]}")
+    best_name=max(results,key=lambda n:results[n]["roc_auc"])
+    best_model=fitted[best_name]
+    print(f"\nBest churn model:{best_name} = {results[best_name]}")
 
     # Save best model + artifacts
     joblib.dump(best_model, f"{MODEL_DIR}/best_churn_model_{best_name}.pkl")
@@ -150,23 +151,19 @@ def main():
     with open(f"{MODEL_DIR}/churn_feature_importance.json", "w") as f:
         json.dump(importances, f, indent=2)
 
-    # ---------------------------------------------------------------
-    # Secondary model: predict Churn_Category (diagnostic reason group)
-    # trained ONLY on churned customers
-    # ---------------------------------------------------------------
-    churned_df = df[df["Customer_Status"] == "Churned"].copy()
-    cat_encoders = build_encoders(churned_df)
-    le_reason = LabelEncoder()
-    y_reason = le_reason.fit_transform(churned_df["Churn_Category"].astype(str))
+    churned_df=df[df["Customer_Status"] == "Churned"].copy()
+    cat_encoders=build_encoders(churned_df)
+    le_reason=LabelEncoder()
+    y_reason=le_reason.fit_transform(churned_df["Churn_Category"].astype(str))
 
-    Xr_tr, Xr_te, yr_tr, yr_te = train_test_split(
+    Xr_tr,Xr_te,yr_tr,yr_te=train_test_split(
         churned_df, y_reason, test_size=0.2, random_state=42, stratify=y_reason
     )
-    Xr_tr_enc, reason_scaler = transform(Xr_tr, cat_encoders, fit_scaler=True)
-    Xr_te_enc, _ = transform(Xr_te, cat_encoders, scaler=reason_scaler, fit_scaler=False)
+    Xr_tr_enc,reason_scaler=transform(Xr_tr, cat_encoders, fit_scaler=True)
+    Xr_te_enc,_= transform(Xr_te, cat_encoders, scaler=reason_scaler, fit_scaler=False)
 
     reason_model = RandomForestClassifier(n_estimators=300, max_depth=10, random_state=42, class_weight="balanced", n_jobs=-1)
-    reason_model.fit(Xr_tr_enc, yr_tr)
+    reason_model.fit(Xr_tr_enc,yr_tr)
     reason_preds = reason_model.predict(Xr_te_enc)
     reason_acc = accuracy_score(yr_te, reason_preds)
     print(f"\nChurn-Reason (diagnostic) model accuracy: {reason_acc:.4f}")
